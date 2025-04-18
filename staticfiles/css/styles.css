@@ -1,0 +1,43 @@
+:root {
+    --primary-color: #e66d00;
+    --primary-hover: #ff7b1a;
+    --white: #ffffff;
+    --transition: all 0.3s ease;
+}
+
+/* Global Button Styles */
+.btn-primary {
+    background-color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    color: var(--white) !important;
+    transition: var(--transition);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover) !important;
+    border-color: var(--primary-hover) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 109, 0, 0.2);
+}
+
+/* Feature Icons */
+.feature-icon {
+    background-color: var(--primary-color) !important;
+}
+
+/* Text Links */
+a:not(.btn) {
+    color: var(--primary-color);
+    transition: var(--transition);
+}
+
+a:not(.btn):hover {
+    color: var(--primary-hover);
+    text-decoration: none;
+}
+
+/* Carousel Controls */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(48%) sepia(90%) saturate(2000%) hue-rotate(360deg) brightness(100%) contrast(110%);
+}

@@ -1,0 +1,470 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="privacy-container" id="privacy-container">
+    <!-- Hero Section with Quick Actions -->
+    <div class="privacy-header">
+        <div class="container">
+            <div class="header-content">
+                <h1>Privacy Policy</h1>
+                <p>Last updated: April 18, 2024</p>
+                <div class="quick-actions">
+                    <button class="btn btn-light btn-sm" onclick="window.print()">
+                        <i class="bi bi-printer"></i> Print Policy
+                    </button>
+                    <button class="btn btn-light btn-sm" id="darkModeToggle">
+                        <i class="bi bi-moon"></i> Dark Mode
+                    </button>
+                    <button class="btn btn-light btn-sm" onclick="increaseFontSize()">
+                        <i class="bi bi-zoom-in"></i> Increase Text
+                    </button>
+                    <button class="btn btn-light btn-sm" onclick="decreaseFontSize()">
+                        <i class="bi bi-zoom-out"></i> Decrease Text
+                    </button>
+                    <button class="btn btn-light btn-sm" onclick="copyToClipboard()">
+                        <i class="bi bi-clipboard"></i> Copy Text
+                    </button>
+                </div>
+                <div class="reading-time">
+                    <i class="bi bi-clock"></i> Estimated reading time: <span id="readingTime">5</span> minutes
+                </div>
+            </div>
+        </div>
+        <!-- Wave Animation -->
+        <div class="header-wave">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+                <path fill="#f8f9fa" fill-opacity="1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+            </svg>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Table of Contents -->
+        <div class="toc-container">
+            <nav class="table-of-contents">
+                <h3>Quick Navigation</h3>
+                <ul>
+                    <li><a href="#section1">Information We Collect</a></li>
+                    <li><a href="#section2">How We Use Information</a></li>
+                    <li><a href="#section3">Information Sharing</a></li>
+                    <li><a href="#section4">Data Security</a></li>
+                    <li><a href="#section5">Your Rights</a></li>
+                    <li><a href="#section6">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+
+        <!-- Existing content with IDs added -->
+        <div class="privacy-content">
+            <section class="policy-section" id="section1">
+                <h2>1. Information We Collect</h2>
+                <p>We collect information that you provide directly to us, including:</p>
+                <ul>
+                    <li>Name and contact information</li>
+                    <li>Profile information and preferences</li>
+                    <li>Communication history</li>
+                    <li>Donation and transaction details</li>
+                </ul>
+            </section>
+
+            <section class="policy-section" id="section2">
+                <h2>2. How We Use Your Information</h2>
+                <p>We use the information we collect to:</p>
+                <ul>
+                    <li>Process your adoption applications</li>
+                    <li>Manage your account and preferences</li>
+                    <li>Send you updates about our pets</li>
+                    <li>Improve our services and website</li>
+                </ul>
+            </section>
+
+            <section class="policy-section" id="section3">
+                <h2>3. Information Sharing</h2>
+                <p>We do not sell or rent your personal information. We may share your information with:</p>
+                <ul>
+                    <li>Pet shelters and rescue organizations</li>
+                    <li>Service providers and partners</li>
+                    <li>Legal authorities when required by law</li>
+                </ul>
+            </section>
+
+            <section class="policy-section" id="section4">
+                <h2>4. Data Security</h2>
+                <p>We implement appropriate security measures to protect your personal information, including:</p>
+                <ul>
+                    <li>Encryption of sensitive data</li>
+                    <li>Regular security assessments</li>
+                    <li>Access controls and monitoring</li>
+                </ul>
+            </section>
+
+            <section class="policy-section" id="section5">
+                <h2>5. Your Rights</h2>
+                <p>You have the right to:</p>
+                <ul>
+                    <li>Access your personal information</li>
+                    <li>Correct inaccurate data</li>
+                    <li>Request deletion of your data</li>
+                    <li>Opt-out of communications</li>
+                </ul>
+            </section>
+
+            <section class="policy-section" id="section6">
+                <h2>6. Contact Us</h2>
+                <p>If you have questions about this Privacy Policy, please contact us at:</p>
+                <div class="contact-box">
+                    <p><strong>Email:</strong> privacy@petstop.com</p>
+                    <p><strong>Phone:</strong> +1 234 567 8900</p>
+                    <p><strong>Address:</strong> 123 Pet Street, City Name, Country</p>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <div class="progress-container">
+        <div class="progress-bar"></div>
+    </div>
+
+    <div class="floating-actions">
+        <button class="floating-action-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+            <i class="bi bi-arrow-up"></i>
+        </button>
+        <button class="floating-action-btn" onclick="window.scrollTo({top: document.body.scrollHeight, behavior: 'smooth'})">
+            <i class="bi bi-arrow-down"></i>
+        </button>
+    </div>
+</div>
+
+<style>
+:root {
+    --primary-color: #e66d00;
+    --secondary-color: #ff7b1a;
+    --text-color: #333;
+    --light-color: #f8f9fa;
+}
+
+[data-theme="dark"] {
+    --primary-color: #ff7b1a;
+    --text-color: #e0e0e0;
+    --bg-color: #1a1a1a;
+    --header-bg: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+}
+
+.privacy-container {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+}
+
+.privacy-header {
+    background: var(--header-bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.header-content {
+    padding: 60px 0;
+    text-align: center;
+    color: white;
+}
+
+.reading-time {
+    margin-top: 15px;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.quick-actions {
+    margin-top: 20px;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.header-wave {
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    line-height: 0;
+}
+
+.toc-container {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+}
+
+.table-of-contents ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.table-of-contents li a {
+    display: inline-block;
+    padding: 8px 15px;
+    background: #f8f9fa;
+    border-radius: 20px;
+    color: var(--primary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.table-of-contents li a:hover {
+    background: var(--primary-color);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.policy-section {
+    position: relative;
+    padding: 30px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    background: var(--bg-color);
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.policy-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+.section-number {
+    position: absolute;
+    top: -15px;
+    left: -15px;
+    width: 30px;
+    height: 30px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: rgba(0,0,0,0.1);
+    z-index: 1000;
+}
+
+.progress-bar {
+    height: 100%;
+    background: var(--primary-color);
+    width: 0;
+    transition: width 0.3s ease;
+}
+
+.floating-actions {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.floating-action-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.floating-action-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.privacy-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.privacy-header p {
+    opacity: 0.8;
+}
+
+.privacy-content {
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.policy-section {
+    margin-bottom: 40px;
+}
+
+.policy-section:last-child {
+    margin-bottom: 0;
+}
+
+.policy-section h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.policy-section p {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.policy-section ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.policy-section ul li {
+    position: relative;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+
+.policy-section ul li:before {
+    content: "•";
+    color: var(--primary-color);
+    font-size: 1.5em;
+    position: absolute;
+    left: 0;
+    top: -5px;
+}
+
+.contact-box {
+    background: var(--bg-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-top: 15px;
+}
+
+.contact-box p {
+    margin-bottom: 10px;
+}
+
+.contact-box p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+    .privacy-header {
+        padding: 60px 0 30px;
+    }
+    
+    .privacy-header h1 {
+        font-size: 2rem;
+    }
+    
+    .privacy-content {
+        padding: 20px;
+        margin: 0 15px;
+    }
+    
+    .policy-section h2 {
+        font-size: 1.3rem;
+    }
+}
+
+@media print {
+    .quick-actions, .toc-container {
+        display: none;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Dark mode toggle
+    const darkModeToggle = document.getElementById('darkModeToggle');
+    darkModeToggle.addEventListener('click', () => {
+        document.documentElement.setAttribute('data-theme', 
+            document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'
+        );
+    });
+
+    // Smooth scroll for TOC links
+    document.querySelectorAll('.table-of-contents a').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const section = document.querySelector(this.getAttribute('href'));
+            section.scrollIntoView({ behavior: 'smooth' });
+        });
+    });
+
+    calculateReadingTime();
+});
+
+// Reading progress
+window.onscroll = function() {
+    let winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+    let height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    let scrolled = (winScroll / height) * 100;
+    document.querySelector(".progress-bar").style.width = scrolled + "%";
+};
+
+// Copy to clipboard
+function copyToClipboard() {
+    const content = document.querySelector('.privacy-content').innerText;
+    navigator.clipboard.writeText(content).then(() => {
+        alert('Privacy policy copied to clipboard!');
+    });
+}
+
+// Font size controls
+let fontSize = 16;
+function decreaseFontSize() {
+    if (fontSize > 12) {
+        fontSize -= 2;
+        updateFontSize();
+    }
+}
+
+function updateFontSize() {
+    document.querySelectorAll('.policy-section p, .policy-section li').forEach(el => {
+        el.style.fontSize = `${fontSize}px`;
+    });
+}
+
+// Calculate reading time
+function calculateReadingTime() {
+    const text = document.querySelector('.privacy-content').innerText;
+    const words = text.trim().split(/\s+/).length;
+    const time = Math.ceil(words / 200); // Assuming 200 words per minute
+    document.getElementById('readingTime').textContent = time;
+}
+</script>
+{% endblock %}

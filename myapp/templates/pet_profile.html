@@ -1,0 +1,384 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-section">
+    <div class="container">
+        <h1 class="display-4 text-center fw-bold animate-up">Find Your Perfect Companion</h1>
+        <p class="lead text-center animate-up delay-1">Every pet deserves a loving home. Browse our available friends waiting to meet you.</p>
+        
+        <!-- Filter Section -->
+        <div class="filter-container animate-up delay-2">
+            <form class="row g-3" method="GET" id="filterForm">
+                <div class="col-md-3">
+                    <select name="species" class="form-select" id="speciesFilter">
+                        <option value="">All Species</option>
+                        <option value="dog">Dogs</option>
+                        <option value="cat">Cats</option>
+                        <option value="bird">Birds</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <select name="age" class="form-select" id="ageFilter">
+                        <option value="">Any Age</option>
+                        <option value="baby">Baby (0-1 year)</option>
+                        <option value="young">Young (1-3 years)</option>
+                        <option value="adult">Adult (3-8 years)</option>
+                        <option value="senior">Senior (8+ years)</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <div class="search-wrapper">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="search" name="search" class="form-control" placeholder="Search by name or description..." id="searchInput">
+                    </div>
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-primary w-100">
+                        <i class="bi bi-filter"></i> Filter
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Pets Grid Section -->
+<div class="pets-section">
+    <div class="container py-5">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4" id="petsGrid">
+            {% for pet in pets %}
+            <div class="col animate-up" data-index="{{ forloop.counter0 }}">
+                <div class="pet-card">
+                    <div class="image-container">
+                        <img src="{% static 'images/'|add:pet.image %}" alt="{{ pet.name }}" class="card-img-top">
+                        <div class="pet-badge">{{ pet.species }}</div>
+                        <div class="overlay">
+                            <h3>{{ pet.name }}</h3>
+                            <p class="pet-info">
+                                <span><i class="bi bi-calendar"></i> {{ pet.age }}</span>
+                                <span><i class="bi bi-gender-ambiguous"></i> {{ pet.gender }}</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">{{ pet.description }}</p>
+                        <div class="card-actions">
+                            <button class="btn btn-outline-primary" onclick="showPetDetails('{{ pet.id }}')">
+                                <i class="bi bi-info-circle"></i> Learn More
+                            </button>
+                            <button class="btn btn-primary" onclick="startAdoption('{{ pet.id }}')">
+                                <i class="bi bi-heart"></i> Adopt Me
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <div class="empty-state">
+                    <i class="bi bi-search-heart"></i>
+                    <h3>No pets found</h3>
+                    <p>Try adjusting your search filters or browse all available pets.</p>
+                    <button class="btn btn-primary" onclick="resetFilters()">
+                        Show All Pets
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Pet Details Modal -->
+<div class="modal fade" id="petModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <!-- Content will be dynamically loaded -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    color: white;
+    padding: 80px 0 40px;
+    position: relative;
+}
+
+.filter-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 30px;
+}
+
+.search-wrapper {
+    position: relative;
+}
+
+.search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+}
+
+.search-wrapper input {
+    padding-left: 40px;
+    border-radius: 25px;
+}
+
+.pet-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+.pet-card:hover {
+    transform: translateY(-5px);
+}
+
+.image-container {
+    position: relative;
+    padding-top: 75%;
+    overflow: hidden;
+}
+
+.card-img-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.pet-card:hover .card-img-top {
+    transform: scale(1.1);
+}
+
+.pet-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 5px 15px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+}
+
+.pet-info {
+    display: flex;
+    gap: 15px;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+.pet-info i {
+    margin-right: 5px;
+}
+
+.card-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.empty-state {
+    padding: 40px;
+    text-align: center;
+}
+
+.empty-state i {
+    font-size: 4rem;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-up {
+    opacity: 0;
+    animation: fadeUp 0.5s ease forwards;
+}
+
+.delay-1 { animation-delay: 0.2s; }
+.delay-2 { animation-delay: 0.4s; }
+
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 60px 0 30px;
+    }
+    
+    .filter-container {
+        margin: 20px;
+    }
+    
+    .card-actions {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+{% endblock %}
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize tooltips
+    const tooltips = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltips.forEach(tooltip => new bootstrap.Tooltip(tooltip));
+
+    // Filter form handling
+    const form = document.getElementById('filterForm');
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        applyFilters();
+    });
+
+    // Real-time search
+    let timeout = null;
+    document.getElementById('searchInput').addEventListener('input', function() {
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            applyFilters();
+        }, 500);
+    });
+
+    // Set animation delays for pet cards
+    const items = document.querySelectorAll('#petsGrid .animate-up');
+    items.forEach((item, index) => {
+        item.style.animationDelay = `${index * 0.1}s`;
+    });
+});
+
+function applyFilters() {
+    const formData = new FormData(document.getElementById('filterForm'));
+    const params = new URLSearchParams(formData);
+    window.location.href = `${window.location.pathname}?${params}`;
+}
+
+function resetFilters() {
+    document.getElementById('filterForm').reset();
+    window.location.href = window.location.pathname;
+}
+
+function showPetDetails(petId) {
+    fetch(`/api/pets/${petId}/`)
+        .then(response => response.json())
+        .then(pet => {
+            const modalContent = `
+                <div class="pet-detail-modal">
+                    <div class="pet-detail-image">
+                        <img src="${pet.image_url}" alt="${pet.name}" class="img-fluid">
+                    </div>
+                    <div class="pet-detail-content p-4">
+                        <h2>${pet.name}</h2>
+                        <div class="pet-detail-info">
+                            <p><strong>Species:</strong> ${pet.species}</p>
+                            <p><strong>Breed:</strong> ${pet.breed}</p>
+                            <p><strong>Age:</strong> ${pet.age}</p>
+                            <p><strong>Gender:</strong> ${pet.gender}</p>
+                        </div>
+                        <div class="pet-detail-description">
+                            <h4>About Me</h4>
+                            <p>${pet.description}</p>
+                        </div>
+                        <button class="btn btn-primary w-100 mt-3" onclick="startAdoption('${pet.id}')">
+                            Start Adoption Process
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            document.querySelector('#petModal .modal-body').innerHTML = modalContent;
+            new bootstrap.Modal(document.getElementById('petModal')).show();
+        });
+}
+
+function startAdoption(petId) {
+    const form = document.createElement('form');
+    form.innerHTML = `
+        <div class="p-4">
+            <h3>Adoption Application</h3>
+            <input type="hidden" name="pet_id" value="${petId}">
+            <div class="mb-3">
+                <label class="form-label">Full Name</label>
+                <input type="text" class="form-control" name="name" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="email" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Phone</label>
+                <input type="tel" class="form-control" name="phone" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <textarea class="form-control" name="address" rows="2" required></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Why would you like to adopt this pet?</label>
+                <textarea class="form-control" name="reason" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Submit Application</button>
+        </div>
+    `;
+
+    form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(form);
+        
+        fetch('/api/adopt/', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Thank you! Your adoption application has been submitted.');
+                bootstrap.Modal.getInstance(document.getElementById('petModal')).hide();
+            } else {
+                alert('There was an error submitting your application. Please try again.');
+            }
+        });
+    });
+
+    document.querySelector('#petModal .modal-body').innerHTML = '';
+    document.querySelector('#petModal .modal-body').appendChild(form);
+}
+</script>
+

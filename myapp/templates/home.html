@@ -1,0 +1,311 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<!-- Custom CSS -->
+<style>
+    .hero-carousel .carousel-item {
+        height: 80vh;
+        min-height: 500px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+    
+    .hero-carousel .carousel-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6));
+    }
+    
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        padding: 5rem 0;
+    }
+    
+    .feature-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 70px;
+        height: 70px;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+        color: #fff;
+        border-radius: 50%;
+        background-color: #0d6efd;
+    }
+    
+    .pet-card {
+        transition: transform 0.3s ease;
+        height: 400px;
+    }
+    
+    .pet-card:hover {
+        transform: translateY(-10px);
+    }
+    
+    .text-shadow {
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    }
+    
+    .section-heading {
+        position: relative;
+        padding-bottom: 15px;
+        margin-bottom: 30px;
+    }
+    
+    .section-heading:after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 3px;
+        background-color: #0d6efd;
+    }
+    
+    .about-section {
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+</style>
+
+<!-- Hero Carousel Section -->
+<div class="container-fluid p-0">
+    <div id="mainCarousel" class="carousel slide carousel-fade hero-carousel" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: url('{% static 'images/1.jpg' %}');">
+                <div class="container hero-content text-center text-white">
+                    <h1 class="display-3 fw-bold mb-4 text-shadow">Welcome to Pet Stop</h1>
+                    <p class="lead fs-3 mb-5 text-shadow">Help us give every pet a loving home</p>
+                    <a href="#pets" class="btn btn-primary btn-lg rounded-pill px-5 py-3">
+                        <i class="bi bi-heart-fill me-2"></i>Find Your Companion
+                    </a>
+                </div>
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#mainCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#mainCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </button>
+    </div>
+</div>
+
+<!-- Featured Pets Section -->
+<div class="container px-4 py-5" id="pets">
+    <h2 class="text-center section-heading display-5">Pets Looking for a Home</h2>
+    
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 py-5">
+        <div class="col">
+            <div class="card pet-card shadow-lg h-100 border-0 overflow-hidden">
+                <div class="card-cover overflow-hidden text-white" 
+                     style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('{% static "images/pet1.jpeg" %}'); 
+                            background-size: cover; 
+                            background-position: center;
+                            height: 300px;">
+                    <div class="d-flex flex-column h-100 p-4">
+                        <div class="mt-auto">
+                            <h3 class="display-6 fw-bold text-shadow">Tommy</h3>
+                            <div class="d-flex gap-3 mb-2">
+                                <span class="badge bg-primary rounded-pill">Dog</span>
+                                <span class="badge bg-info rounded-pill">9 Months</span>
+                            </div>
+                            <p class="lead">Playful and loves children</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid">
+                        <a href="#" class="btn btn-primary">Meet Tommy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card pet-card shadow-lg h-100 border-0 overflow-hidden">
+                <div class="card-cover overflow-hidden text-white" 
+                     style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('{% static "images/pet2.jpg" %}'); 
+                            background-size: cover; 
+                            background-position: center;
+                            height: 300px;">
+                    <div class="d-flex flex-column h-100 p-4">
+                        <div class="mt-auto">
+                            <h3 class="display-6 fw-bold text-shadow">Simba</h3>
+                            <div class="d-flex gap-3 mb-2">
+                                <span class="badge bg-warning rounded-pill">Cat</span>
+                                <span class="badge bg-info rounded-pill">4 Months</span>
+                            </div>
+                            <p class="lead">Curious and affectionate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid">
+                        <a href="#" class="btn btn-primary">Meet Simba</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col">
+            <div class="card pet-card shadow-lg h-100 border-0 overflow-hidden">
+                <div class="card-cover overflow-hidden text-white" 
+                     style="background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.7)), url('{% static "images/pet3.jpg" %}'); 
+                            background-size: cover; 
+                            background-position: center;
+                            height: 300px;">
+                    <div class="d-flex flex-column h-100 p-4">
+                        <div class="mt-auto">
+                            <h3 class="display-6 fw-bold text-shadow">Sheru</h3>
+                            <div class="d-flex gap-3 mb-2">
+                                <span class="badge bg-danger rounded-pill">Dog</span>
+                                <span class="badge bg-info rounded-pill">11 Months</span>
+                            </div>
+                            <p class="lead">Loyal and protective</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="d-grid">
+                        <a href="#" class="btn btn-primary">Meet Sheru</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="text-center mt-3">
+        <a href="#" class="btn btn-lg btn-outline-primary rounded-pill px-5">
+            <i class="bi bi-search me-2"></i>View All Pets
+        </a>
+    </div>
+</div>
+
+<!-- Call to Action Section -->
+<div class="container-fluid py-5 bg-primary text-white">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-8 text-center text-lg-start">
+                <h2 class="display-4 fw-bold mb-3">Find Your Perfect Pet Today!</h2>
+                <p class="lead fs-4 mb-0">Sign up now to explore a wide range of adoptable pets waiting for their forever homes.</p>
+            </div>
+            <div class="col-lg-4 text-center text-lg-end mt-4 mt-lg-0">
+                <a href="#" class="btn btn-light btn-lg rounded-pill px-5">
+                    <i class="bi bi-person-plus-fill me-2"></i>Sign Up Now
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Features Section -->
+<div class="container px-4 py-5" id="features">
+    <h2 class="text-center section-heading display-5">Our Features</h2>
+    
+    <div class="row g-5 py-5">
+        <div class="col-md-4 text-center">
+            <div class="feature-icon">
+                <i class="bi bi-search"></i>
+            </div>
+            <h3 class="fs-2 fw-bold">Advanced Search</h3>
+            <p class="lead">Filter pets based on species, breed, age, size, and special needs. Find your perfect companion that matches your lifestyle.</p>
+            <a href="#" class="btn btn-outline-primary rounded-pill px-4 mt-3">
+                <i class="bi bi-arrow-right-circle me-2"></i>Learn More
+            </a>
+        </div>
+        
+        <div class="col-md-4 text-center">
+            <div class="feature-icon">
+                <i class="bi bi-card-heading"></i>
+            </div>
+            <h3 class="fs-2 fw-bold">Pet Profiles</h3>
+            <p class="lead">Detailed profiles with high-quality photos, breed information, age, temperament, and health status for informed decisions.</p>
+            <a href="#" class="btn btn-outline-primary rounded-pill px-4 mt-3">
+                <i class="bi bi-arrow-right-circle me-2"></i>View Profiles
+            </a>
+        </div>
+        
+        <div class="col-md-4 text-center">
+            <div class="feature-icon">
+                <i class="bi bi-clipboard-check"></i>
+            </div>
+            <h3 class="fs-2 fw-bold">Easy Adoption</h3>
+            <p class="lead">Clear, well-structured adoption process with simple steps, required documentation, and transparent fees.</p>
+            <a href="#" class="btn btn-outline-primary rounded-pill px-4 mt-3">
+                <i class="bi bi-arrow-right-circle me-2"></i>Start Now
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- Testimonial Section -->
+<div class="container-fluid py-5 bg-light">
+    <div class="container py-4">
+        <h2 class="text-center section-heading display-5">Happy Pet Parents</h2>
+        
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body p-5 text-center">
+                        <i class="bi bi-quote display-1 text-primary opacity-25"></i>
+                        <p class="lead fs-4 mb-4 fst-italic">"Adopting from Pet Stop was the best decision we've made. Our new puppy has brought so much joy to our family. The process was smooth and the staff was incredibly helpful."</p>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <div class="fw-bold">Sarah Johnson</div>
+                            <span class="mx-2">|</span>
+                            <div>Adopted Tommy in 2024</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- About Section -->
+<div class="container py-5">
+    <div class="row">
+        <div class="col-lg-10 mx-auto">
+            <div class="p-5 text-center about-section shadow-sm">
+                <h2 class="text-center section-heading display-5">About Pet Stop</h2>
+                <p class="lead fs-4">
+                    Welcome to Pet Stop, where we connect loving families with pets in need of a forever home. 
+                    Our platform offers a wide range of adoptable animals, making it easy to find your perfect companion 
+                    and provide them with a caring and safe environment.
+                </p>
+                <p class="fs-5">
+                    Founded in 2022, our mission is to reduce pet homelessness and ensure every animal finds the loving home they deserve.
+                    With hundreds of successful adoptions, we continue to grow our community of pet lovers.
+                </p>
+                <a href="#" class="btn btn-primary btn-lg rounded-pill px-5 mt-3">
+                    <i class="bi bi-info-circle me-2"></i>Learn More About Us
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Call to Action Banner -->
+<div class="container-fluid py-5 bg-primary text-white">
+    <div class="container py-4 text-center">
+        <h2 class="display-4 fw-bold">The Only Stop for Adopting Pets</h2>
+        <p class="lead fs-3 mb-4">Start finding your perfect companion today</p>
+        <a href="#" class="btn btn-light btn-lg rounded-pill px-5">
+            <i class="bi bi-heart-fill me-2"></i>Adopt Now
+        </a>
+    </div>
+</div>
+
+{% endblock %}
